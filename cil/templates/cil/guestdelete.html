@@ -1,0 +1,161 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CIL - Delete Request</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="all,follow" />
+    <!-- Bootstrap CSS-->
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <!-- Font Awesome CSS-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+    <!-- Google fonts - Popppins for copy-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,800"
+    />
+    <!-- orion icons-->
+    <link rel="stylesheet" href="{% static 'css/orionicons.css' %}" />
+    <!-- theme stylesheet-->
+    <link
+      rel="stylesheet"
+      href="{% static 'css/style.default.css' %}"
+      id="theme-stylesheet"
+    />
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" />
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script
+    ><![endif]-->
+  </head>
+  <body>
+    <!-- navbar-->
+    <header class="header">
+      <nav class="navbar navbar-expand-lg px-4 py-4 bg-white shadow">
+        <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"
+          ><i class="fas fa-align-left"></i></a
+        ><a
+          href="../"
+          class="navbar-brand font-weight-bold text-uppercase text-base"
+          >Centre for Inovative Learning</a
+        >
+        <!--<ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+          <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="logo.png" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
+            <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">Guest</strong></a>
+              <div class="dropdown-divider"></div><a href="login.html" class="dropdown-item">Logout</a>
+            </div>
+          </li>
+        </ul>-->
+      </nav>
+    </header>
+    <div class="d-flex align-items-stretch">
+      <div id="sidebar" class="sidebar py-3">
+        <div
+          class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family"
+        >
+          MAIN
+        </div>
+        <ul class="sidebar-menu list-unstyled">
+          <li class="sidebar-list-item">
+            <a href="{% url 'cil:guestauth' %}" class="sidebar-link text-muted "
+              ><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a
+            >
+          </li>
+          <li class="sidebar-list-item">
+            <a href="{% url 'cil:guestadd' %}" class="sidebar-link text-muted"
+              ><i class="o-table-content-1 mr-3 text-gray"></i
+              ><span>Add Request</span></a
+            >
+          </li>
+
+          <li class="sidebar-list-item">
+            <a href="{% url 'cil:guestedit' %}" class="sidebar-link text-muted"
+              ><i class="o-table-content-1 mr-3 text-gray"></i
+              ><span>Edit Request</span></a
+            >
+          </li>
+          <li class="sidebar-list-item">
+            <a
+              href="{% url 'cil:guestdelete' %}"
+              class="sidebar-link text-muted active"
+              ><i class="o-table-content-1 mr-3 text-gray"></i
+              ><span>Delete Request</span></a
+            >
+          </li>
+
+          <li class="sidebar-list-item">
+            <a href="{% url 'cil:logout' %}" class="sidebar-link text-muted"
+              ><i class="o-exit-1 mr-3 text-gray"></i><span>Logout</span></a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="page-holder w-100 d-flex flex-wrap">
+        <div class="container-fluid px-xl-5">
+          <section class="py-5">
+            <div class="row justify-content-center align-items-center mb-4">
+              <h5>Choose Profile to Delete</h5>
+            </div>
+            {% if ms %}
+            <h5>{{ ms }}</h5>
+            {% endif %}
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="row justify-content-center align-items-center">
+                <div class="col-md-9 select mb-3">
+                  <select name="profid" class="form-control">
+                    {% for p in pro %}
+                    <option value="{{ p.pk }}"
+                      >{{ p.name }} - {{ p.domain }}</option
+                    >
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="row justify-content-center align-items-center mb-4">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+              </div>
+            </form>
+          </section>
+        </div>
+        <footer
+          class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100"
+        >
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6 text-center text-md-left text-primary"></div>
+              <div class="col-md-6 text-center text-md-right text-gray-400">
+                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- JavaScript files-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/popper.js/umd/popper.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery.cookie/jquery.cookie.js' %}"></script>
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="{% static 'js/charts-home.js' %}"></script>
+    <script src="{% static 'js/front.js' %}"></script>
+  </body>
+</html>
